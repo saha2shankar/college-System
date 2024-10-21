@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Admin Panel - Add Faculty</title>
+  <!-- Link to your custom styles -->
+  <div th:replace="~{_css.html}"></div>
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- Topbar with navigation -->
+    <div th:replace="~{_topbar.html}"></div>
+
+    <div class="container-fluid page-body-wrapper">
+      <!-- Sidebar for admin links -->
+      <div th:replace="~{_settings-panel.html}"></div>
+      <div th:replace="~{_sidebar.html}"></div>
+
+      <!-- Main content area -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <!-- Page header -->
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3 text-dark">Add Faculty</h1>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+              <li class="breadcrumb-item active">Add Faculty</li>
+            </ol>
+          </div>
+
+          <!-- Faculty form card -->
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <form action="/addFaculty" method="post">
+                <div class="row">
+                  <!-- Faculty Name Input -->
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label" for="fullName">Faculty Name</label>
+                    <input id="fullName" name="name" placeholder="Enter Faculty Name" type="text" class="form-control" required>
+                  </div>
+
+                  <!-- Submit button -->
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-success mt-3">Submit</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+        <!-- End of content-wrapper -->
+
+        <!-- Footer -->
+        <div th:replace="~{_footer.html}"></div>
+      </div>
+      <!-- End of main-panel -->
+    </div>
+    <!-- End of page-body-wrapper -->
+  </div>
+  <!-- JavaScript and Bootstrap links -->
+  <div th:replace="~{_Javascript.html}"></div>
+</body>
+
+</html>

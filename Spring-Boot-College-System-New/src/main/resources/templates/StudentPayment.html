@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Admin Panel - Student Payment</title>
+<style>
+/* Style for the popup dialog */
+#popup {
+	display: none;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	border-radius: 12px;
+	padding: 30px;
+	max-width: 400px;
+	width: 90%;
+	text-align: center;
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+	z-index: 1000;
+}
+
+/* Background overlay */
+#popup-overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	z-index: 999;
+}
+
+/* Style for close button */
+.close-btn {
+	background-color: #ff4d4d;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	font-size: 14px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.close-btn:hover {
+	background-color: #ff1a1a;
+}
+
+/* Style for success and error messages */
+#popup h2 {
+	font-size: 24px;
+	margin-bottom: 15px;
+	color: #333;
+}
+
+#popup p {
+	font-size: 16px;
+	color: #555;
+}
+
+#popup h2.success {
+	color: #28a745;
+}
+
+#popup h2.error {
+	color: #dc3545;
+}
+</style>
+<!-- Link to your custom styles -->
+<div th:replace="~{_css.html}"></div>
+</head>
+
+<body>
+	<div class="container-scroller">
+		<!-- Topbar with navigation -->
+		<div th:replace="~{_topbar.html}"></div>
+
+		<div class="container-fluid page-body-wrapper">
+			<!-- Sidebar for admin links -->
+			<div th:replace="~{_settings-panel.html}"></div>
+			<div th:replace="~{_sidebar.html}"></div>
+
+			<!-- Main content area -->
+			<div class="main-panel">
+				<div class="content-wrapper">
+					<!-- Page header -->
+					<div class="d-flex justify-content-between align-items-center mb-4">
+						<h1 class="h3 text-dark">Student Payment</h1>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+							<li class="breadcrumb-item"><a href="/feesList">Fee List</a></li>
+							<li class="breadcrumb-item"><a href="/paymentDetails">Personal Details</a></li>
+							<li class="breadcrumb-item active">Student Payment</li>
+						</ol>
+					</div>
+
+
+					<div class="card mb-4">
+					<!-- The Popup Overlay -->
+									<div id="popup-overlay"></div>
+
+									<!-- The Popup Dialog -->
+									<div id="popup">
+										<h2 id="popup-title" th:text="${status == 'success' ? 'Success!' : 'Error!'}">Success or error here from controller</h2>
+										<p id="popup-message" th:text="${message}"> message from controller here</p>
+										<button class="close-btn" onclick="closePopup()">Close</button>
+									</div>
+
+					<!-- Faculty form card -->
+					<div class="card shadow-sm">
+						<div class="card-body">
+							
+					<form action="/payment" method="post" th:object="${student}">
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label class="form-label" for="fullName">Roll No</label> <input
+												id="fullName" th:field="*{rollNo}"
+												placeholder="Enter Roll No" type="text" class="form-control"
+												readonly>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label class="form-label" for="grade">Student Name</label> <input
+												id="grade" th:field="*{fullName}"
+												placeholder="Enter Student Name" type="text"
+												class="form-control" readonly>
+										</div>
+									</div>
+
+								
+
+									<div class="col-sm-6">
+									
+									 <div class="form-group local-forms">
+                                            <div>Fees Type <span class="text-red">*</span></div>
+                                            <div class="form-check-group">
+                                             <div th:each="f:${fList}" >
+                                                <div class="form-check">
+                                               
+                                                    <label class="form-check-label" th:for="${f.feesType}">
+                                                        <input type="checkbox" class="form-check-input fees-checkbox" name="feesType" th:value="${f.feesType}" th:id="${f.feesType}">[[${f.feesType}]] : Rs. [[${f.amount-f.amountPaid}]]
+                                                    </label>
+                                                    <input type="hidden" name="feesTypeCheck" value="required">
+                                                    </div>
+                                                </div>
+                                     
+                                            </div>
+                                        </div>
+									</div>
+
+
+
+
+
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label class="form-label" for="endtime">Amount</label> <input
+												type="number" name="amount" class=" form-control"
+												id="endtime" placeholder="Enter Amount" required>
+										</div>
+									</div>
+
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label class="form-label" for="date">Date</label> <input
+												type="date" th:value="${date}" name="date"
+												class=" form-control" id="date" required>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label class="form-label" for="time">Time</label> <input
+												type="text" th:value="${time}" name="time"
+												class=" form-control" id="time" required>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label class="form-label" for="paidWith">Paid With</label> <select
+												name="paidWith" id="paidWith" required class="form-control">
+
+
+												<option value="Cash">Cash</option>
+												<option value="Cheque">Cheque</option>
+											</select>
+										</div>
+									</div>
+
+
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<br>
+										<button type="submit" class="btn btn-primary" id="submitBtn" disabled>Submit</button>
+								
+															<a th:href="@{/paymentDetails(rollNo=${student.rollNo})}"><button type="button" class="btn btn-warning">Back</button></a>
+										
+									</div>
+
+									<!-- <div>
+										<input type="hidden" th:field="*{rollNo}">
+									</div> -->
+								</div>
+							</form>
+			
+							
+							
+							
+							
+							</div>
+							
+						</div>
+					</div>
+
+				</div>
+				<!-- End of content-wrapper -->
+
+				<!-- Footer -->
+				<div th:replace="~{_footer.html}"></div>
+			</div>
+			<!-- End of main-panel -->
+		</div>
+		<!-- End of page-body-wrapper -->
+	</div>
+	<!-- JavaScript and Bootstrap links -->
+	<div th:replace="~{_Javascript.html}"></div>
+	
+<script>
+    // Function to enable/disable submit button based on checkbox selection
+    document.addEventListener('DOMContentLoaded', function() {
+        const checkboxes = document.querySelectorAll('.fees-checkbox');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Function to check if at least one checkbox is selected
+        function toggleSubmitButton() {
+            const atLeastOneChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+            submitBtn.disabled = !atLeastOneChecked; // Enable or disable the submit button
+        }
+
+        // Add event listeners to checkboxes to toggle submit button on change
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', toggleSubmitButton);
+        });
+
+        // Run the function initially in case the form is loaded with pre-selected checkboxes
+        toggleSubmitButton();
+    });
+
+        
+        
+        window.onload = function() {
+ 		   var message ="[[${message}]]"; 
+      var status = "[[${status}]]";
+ 		    if (message !== 'null' && message !== '') {
+ 		        document.getElementById("popup-overlay").style.display = "block";
+ 		        document.getElementById("popup").style.display = "block";
+
+ 		        if (status === "success") {
+ 		            document.getElementById("popup-message").innerText = message;
+ 		        } else if (status === "error") {
+ 		            document.getElementById("popup-message").innerText = "Error: " + message;
+ 		        }
+ 		    }
+ 		};
+
+ 		function closePopup() {
+ 			document.getElementById("popup-overlay").style.display = "none";
+ 			document.getElementById("popup").style.display = "none";
+ 		}
+</script>
+</body>
+
+</html>

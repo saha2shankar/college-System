@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Admin Panel -Edit Transport</title>
+<!-- Link to your custom styles -->
+<div th:replace="~{_css.html}"></div>
+</head>
+
+<body>
+	<div class="container-scroller">
+		<!-- Topbar with navigation -->
+		<div th:replace="~{_topbar.html}"></div>
+
+		<div class="container-fluid page-body-wrapper">
+			<!-- Sidebar for admin links -->
+			<div th:replace="~{_settings-panel.html}"></div>
+			<div th:replace="~{_sidebar.html}"></div>
+
+			<!-- Main content area -->
+			<div class="main-panel">
+				<div class="content-wrapper">
+					<!-- Page header -->
+					<div class="d-flex justify-content-between align-items-center mb-4">
+						<h1 class="h3 text-dark">Edit Transport</h1>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+							<li class="breadcrumb-item active">Edit Transport</li>
+						</ol>
+					</div>
+
+					<!-- Faculty form card -->
+					<div class="card shadow-sm">
+						<div class="card-body">
+							<form action="/updateTransport" method="post" th:object="${tModel}" >
+							<div class="row">
+							<div class="col-12">
+										<h5 class="form-title" style="margin-bottom: 20px;">
+											<span>Transport Details</span>
+										</h5>
+									</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="fullName">Route Name</label>
+													<input id="fullName" th:field="*{routeName}"
+														placeholder="Enter Route Name" type="text"
+														class="form-control" >
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="vehicheno">Vehicle Number</label>
+													<input id="vehicleno"  th:field="*{vehicleNumber}"
+														placeholder="Enter Vehicle Number" type="text"
+														class="form-control" >
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="driverName">Driver Name</label>
+													<input id="driverName"  th:field="*{driverName}"
+														placeholder="Enter Driver Name" type="text"
+														class="form-control" >
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="driverLicense">Driver License</label>
+													<input id="driverLicense"  th:field="*{driverLicense}"
+														placeholder="Enter License No" type="text"
+														class="form-control" >
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="contactNumber">Contact Number</label>
+													<input id="contactNumber"  th:field="*{contactNumber}"
+														placeholder="Enter Contact Number" type="number"
+														class="form-control" >
+												</div>
+											</div>
+											
+										
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="driverAddress">City</label>
+													<input id="driverAddress"  th:field="*{driverAddress.city}"
+														placeholder="Enter Driver City" type="text"
+														class="form-control" >
+												</div>
+											</div>
+										<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="state">State</label>
+													 <select  th:field="*{driverAddress.state}" id="state" required class="form-control">
+														<option value="Koshi">Koshi</option>
+														<option value="Madhesh">Madhesh</option>
+														<option value="Bagmati">Bagmati</option>
+														<option value="Gandaki">Gandaki</option>
+														<option value="Lumbini">Lumbini</option>
+														<option value="Karnali">Karnali</option>
+														<option value="Sudurpaschim">Sudurpaschim</option>
+													</select>
+												</div>
+											</div>
+											
+											<div class="col-lg-12 col-md-12 col-sm-12"><br>
+												<button type="submit" class="btn btn-primary">Submit</button>
+											</div>
+											<div>
+												<input type="hidden" th:field="*{id}">
+											</div>
+										</div>
+							
+							</form>
+
+
+
+
+						</div>
+					</div>
+
+				</div>
+				<!-- End of content-wrapper -->
+
+				<!-- Footer -->
+				<div th:replace="~{_footer.html}"></div>
+			</div>
+			<!-- End of main-panel -->
+		</div>
+		<!-- End of page-body-wrapper -->
+	</div>
+	<!-- JavaScript and Bootstrap links -->
+	<div th:replace="~{_Javascript.html}"></div>
+</body>
+
+</html>

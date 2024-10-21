@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Admin Panel - Add Subject</title>
+<!-- Link to your custom styles -->
+<div th:replace="~{_css.html}"></div>
+</head>
+
+<body>
+	<div class="container-scroller">
+		<!-- Topbar with navigation -->
+		<div th:replace="~{_topbar.html}"></div>
+
+		<div class="container-fluid page-body-wrapper">
+			<!-- Sidebar for admin links -->
+			<div th:replace="~{_settings-panel.html}"></div>
+			<div th:replace="~{_sidebar.html}"></div>
+
+			<!-- Main content area -->
+			<div class="main-panel">
+				<div class="content-wrapper">
+					<!-- Page header -->
+					<div class="d-flex justify-content-between align-items-center mb-4">
+						<h1 class="h3 text-dark">Add New Subject</h1>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+							<li class="breadcrumb-item active">Add Subject</li>
+						</ol>
+					</div>
+
+					<!-- Faculty form card -->
+					<div class="card shadow-sm">
+						<div class="card-body">
+							<form action="/addSubject" method="post">
+							<div class="row">
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="subjectName">Name</label>
+													 <input id="subjectName" name='name'
+														placeholder="Enter Subject Name" type="text"
+														class="form-control" required>
+												</div>
+											</div>
+														<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="department">Faculty</label>
+													 <select name="faculty" id="department" required class="form-control">
+														<option value="">Select</option>
+														
+														<option th:each="f:${facultyList}" th:value="${f.id}">[[${f.name}]]</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="grade">Grade</label>
+													 <select name="grade" id="grade" required class="form-control">
+														<option value="">Select Grade</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+													</select>
+												</div>
+											</div>
+											
+
+											<div class="col-lg-12 col-md-12 col-sm-12">
+												<br>
+												<button type="submit" class="btn btn-primary">Submit</button>
+											</div>
+										</div>
+							</form>
+
+
+
+
+						</div>
+					</div>
+
+				</div>
+				<!-- End of content-wrapper -->
+
+				<!-- Footer -->
+				<div th:replace="~{_footer.html}"></div>
+			</div>
+			<!-- End of main-panel -->
+		</div>
+		<!-- End of page-body-wrapper -->
+	</div>
+	<!-- JavaScript and Bootstrap links -->
+	<div th:replace="~{_Javascript.html}"></div>
+</body>
+
+</html>

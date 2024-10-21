@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Admin Panel - Edit Fee</title>
+<!-- Link to your custom styles -->
+<div th:replace="~{_css.html}"></div>
+</head>
+
+<body>
+	<div class="container-scroller">
+		<!-- Topbar with navigation -->
+		<div th:replace="~{_topbar.html}"></div>
+
+		<div class="container-fluid page-body-wrapper">
+			<!-- Sidebar for admin links -->
+			<div th:replace="~{_settings-panel.html}"></div>
+			<div th:replace="~{_sidebar.html}"></div>
+
+			<!-- Main content area -->
+			<div class="main-panel">
+				<div class="content-wrapper">
+					<!-- Page header -->
+					<div class="d-flex justify-content-between align-items-center mb-4">
+						<h1 class="h3 text-dark">Update Fee</h1>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+							<li class="breadcrumb-item"><a href="/feesList">Fee List</a></li>
+							<li class="breadcrumb-item active">Edit Fee</li>
+						</ol>
+					</div>
+
+					<!-- Faculty form card -->
+					<div class="card shadow-sm">
+						<div class="card-body">
+							<form action="/updateFees" method="post" th:object="${fModel}" >
+										<div class="row">
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="fullName">Roll No</label>
+													<input id="fullName" th:field="*{rollNo}"
+														placeholder="Enter Student Id" type="text"
+														class="form-control" >
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="grade">Student Name</label>
+													 <input id="grade" th:field="*{studentName}"
+														placeholder="Enter Student Name" type="text"
+														class="form-control" >
+												</div>
+											</div>
+											
+										
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="startTime">Fees Type</label>
+														<input type="text" th:field="*{feesType}"
+															class=" form-control" id="startTime" placeholder="Enter Fees Type" required
+															>
+												</div>
+											</div>
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="endtime">Amount</label>
+														<input type="number" th:field="*{amount}"
+															class=" form-control" id="endtime" placeholder="Enter Amount" required
+															>
+												</div>
+											</div>
+										
+										
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="amtPaid">Amount Paid</label>
+														<input type="number" th:field="*{amountPaid}"
+															class=" form-control" id="amtPaid" required
+															>
+												</div>
+											</div>
+										
+										
+										
+										
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="invoiceDate">Invoice Date</label>
+														<input type="date" th:field="*{invoiceDate}"
+															class=" form-control" id="invoiceDate" required
+															>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="date">Due Date</label>
+														<input type="date" th:field="*{dueDate}"
+															class=" form-control" id="date" required
+															>
+												</div>
+											</div>
+										<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="status">Status</label>
+														<input type="text" th:field="*{status}"
+															class=" form-control" id="status" required
+															>
+												</div>
+											</div>
+											
+											<div class="col-lg-12 col-md-12 col-sm-12"><br>
+												<button type="submit" class="btn btn-primary">Submit</button>
+																								<a href="/feesList"><button type="button" class="btn btn-warning">Cancel</button></a>
+												
+											</div>
+											<div>
+												<input type="hidden" th:field="*{id}">
+											</div>
+										</div>
+									</form>
+						</div>
+					</div>
+
+				</div>
+				<!-- End of content-wrapper -->
+
+				<!-- Footer -->
+				<div th:replace="~{_footer.html}"></div>
+			</div>
+			<!-- End of main-panel -->
+		</div>
+		<!-- End of page-body-wrapper -->
+	</div>
+	<!-- JavaScript and Bootstrap links -->
+	<div th:replace="~{_Javascript.html}"></div>
+</body>
+
+</html>
